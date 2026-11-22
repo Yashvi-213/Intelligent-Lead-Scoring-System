@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="glass-card" style="max-width: 600px; margin: 0 auto; text-align: center; border-color: {{ color }}44;">
+    <h2 style="font-weight: 800;">Analysis Result</h2>
+    <p style="color: var(--text-muted); margin-top: 0.5rem;">The AI has processed your lead data.</p>
+
+    <div class="score-circle">
+        <span class="score-label">Lead Score</span>
+        <span class="score-value" style="color: {{ color }}; text-shadow: 0 0 20px {{ color }}66;">{{ score }}</span>
+        <div class="status-badge" style="color: {{ color }}; background: {{ color }}11;">
+            {{ status }}
+        </div>
+    </div>
+
+    <div style="margin: 2rem 0; padding: 1.5rem; background: rgba(255,255,255,0.02); border-radius: 18px; border: 1px dashed var(--glass-border);">
+        <p style="font-size: 1rem; line-height: 1.8; color: var(--text); text-align: center;">
+            Based on the <strong style="color: {{ color }};">{{ input_data['Industry'] }}</strong> sector and the current stage <strong style="color: {{ color }};">{{ input_data['Lead Stage'] }}</strong>, this lead demonstrates <strong style="color: {{ color }}; font-size: 1.1rem;">{{ (score / 100 * 100)|round|int }}% engagement probability</strong> relative to successful conversions in your CRM history.
+        </p>
+    </div>
+
+    <div class="details-grid" style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; margin-top: 2rem;">
+        <div class="detail-item" style="background: rgba(255,255,255,0.03); padding: 1.2rem; border-radius: 12px; text-align: center;">
+            <div class="detail-label" style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.5px;">Call Status</div>
+            <div style="font-weight: 600; font-size: 1.1rem; color: var(--text);">{{ input_data['Call Status'] }}</div>
+        </div>
+        <div class="detail-item" style="background: rgba(255,255,255,0.03); padding: 1.2rem; border-radius: 12px; text-align: center;">
+            <div class="detail-label" style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.5px;">Users</div>
+            <div style="font-weight: 600; font-size: 1.1rem; color: var(--text);">{{ input_data['Users'] }}</div>
+        </div>
+        <div class="detail-item" style="background: rgba(255,255,255,0.03); padding: 1.2rem; border-radius: 12px; text-align: center;">
+            <div class="detail-label" style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.5px;">Call Remarks</div>
+            <div style="font-weight: 600; font-size: 1.1rem; color: var(--text);">{{ input_data['Call Remarks'] }}</div>
+        </div>
+        <div class="detail-item" style="background: rgba(255,255,255,0.03); padding: 1.2rem; border-radius: 12px; text-align: center;">
+            <div class="detail-label" style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.5px;">Algorithm</div>
+            <div style="font-weight: 600; font-size: 1.1rem; color: var(--text);">Random Forest</div>
+        </div>
+    </div>
+
+    <a href="/" class="btn-primary" style="display: block; margin-top: 2.5rem; text-decoration: none; padding-top: 0.8rem; height: 3.5rem;">
+        <i class="fa-solid fa-rotate-left"></i> NEW ANALYSIS
+    </a>
+</div>
+
+<style>
+    /* 5D Depth Effect for result */
+    .score-circle {
+        animation: pulse 2s infinite ease-in-out;
+    }
+    @keyframes pulse {
+        0% { transform: scale(1); box-shadow: 0 0 20px transparent; }
+        50% { transform: scale(1.03); box-shadow: 0 0 40px {{ color }}22; }
+        100% { transform: scale(1); box-shadow: 0 0 20px transparent; }
+    }
+</style>
+{% endblock %}

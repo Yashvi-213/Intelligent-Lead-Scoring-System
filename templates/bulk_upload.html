@@ -1,0 +1,100 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div style="max-width: 800px; margin: 0 auto;">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+        <h1 style="font-weight: 800; font-size: 2rem;">Bulk Upload Leads</h1>
+        <a href="{{ url_for('view_leads') }}" class="btn-secondary" style="text-decoration: none; display: inline-block; padding: 0.8rem 1.5rem;">
+            <i class="fa-solid fa-arrow-left"></i> Back to Leads
+        </a>
+    </div>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            {% for category, message in messages %}
+            <div class="alert alert-{{ category }}" style="margin-bottom: 1.5rem; padding: 1rem; border-radius: 12px; {% if category == 'success' %}background: rgba(16, 185, 129, 0.1); border: 1px solid rgba(16, 185, 129, 0.5); color: #10b981;{% else %}background: rgba(255, 51, 102, 0.1); border: 1px solid rgba(255, 51, 102, 0.5); color: #ff3366;{% endif %}">
+                {{ message }}
+            </div>
+            {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <div class="glass-card">
+        <h2 style="margin-bottom: 1.5rem; font-weight: 700;">Upload CSV or Excel File</h2>
+        
+        <div style="margin-bottom: 1.5rem; padding: 1rem; background: rgba(59, 130, 246, 0.05); border-left: 4px solid var(--primary); border-radius: 8px;">
+            <p style="margin: 0; display: flex; align-items: center; gap: 0.5rem;">
+                <i class="fa-solid fa-download"></i>
+                <a href="{{ url_for('download_template') }}" style="color: var(--primary); text-decoration: none; font-weight: 600;">Download Sample Template</a>
+                <span style="color: var(--text-muted);">to see the correct format</span>
+            </p>
+        </div>
+        
+        <form method="POST" enctype="multipart/form-data">
+            <div class="form-group">
+                <label>Select File (CSV, XLSX, XLS)</label>
+                <input type="file" name="file" accept=".csv,.xlsx,.xls" required style="padding: 1.5rem; border: 2px dashed var(--glass-border); background: rgba(255,255,255,0.02);">
+            </div>
+
+            <button type="submit" class="btn-primary">
+                <i class="fa-solid fa-cloud-arrow-up"></i> UPLOAD & PROCESS
+            </button>
+        </form>
+    </div>
+
+    <div class="glass-card" style="margin-top: 2rem;">
+        <h3 style="margin-bottom: 1rem; font-weight: 700;"><i class="fa-solid fa-circle-info"></i> File Format Requirements</h3>
+        
+        <p style="color: var(--text-muted); margin-bottom: 1rem;">Your file must contain the following columns:</p>
+        
+        <div style="background: rgba(255,255,255,0.02); padding: 1rem; border-radius: 12px; margin-bottom: 1.5rem;">
+            <h4 style="font-size: 0.9rem; color: var(--primary); margin-bottom: 0.8rem;">Required Columns:</h4>
+            <ul style="list-style: none; padding: 0;">
+                <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--glass-border);"><strong>Industry</strong> - Industry vertical</li>
+                <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--glass-border);"><strong>Lead Stage</strong> - Current lead stage</li>
+                <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--glass-border);"><strong>Call Status</strong> - Last call status</li>
+                <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--glass-border);"><strong>Call Remarks</strong> - Call remarks meta</li>
+                <li style="padding: 0.5rem 0;"><strong>Users</strong> - Number of users (numeric)</li>
+            </ul>
+        </div>
+
+        <div style="background: rgba(255,255,255,0.02); padding: 1rem; border-radius: 12px; margin-bottom: 1.5rem;">
+            <h4 style="font-size: 0.9rem; color: var(--accent); margin-bottom: 0.8rem;">Optional Columns:</h4>
+            <ul style="list-style: none; padding: 0;">
+                <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--glass-border);"><strong>contact_name</strong> - Contact person name</li>
+                <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--glass-border);"><strong>email</strong> - Email address</li>
+                <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--glass-border);"><strong>phone</strong> - Phone number</li>
+                <li style="padding: 0.5rem 0; border-bottom: 1px solid var(--glass-border);"><strong>company_name</strong> - Company name</li>
+                <li style="padding: 0.5rem 0;"><strong>notes</strong> - Additional notes</li>
+            </ul>
+        </div>
+
+        <h4 style="margin-bottom: 0.8rem; font-size: 0.95rem; color: var(--primary);">Valid Values:</h4>
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+            <div>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem;">Industry:</p>
+                <div style="background: rgba(255,255,255,0.02); padding: 0.8rem; border-radius: 8px; font-size: 0.85rem;">
+                    {% for item in dropdown_data['Industry'][:5] %}
+                    <span style="display: inline-block; padding: 0.2rem 0.5rem; background: rgba(59, 130, 246, 0.1); border-radius: 4px; margin: 0.2rem;">{{ item }}</span>
+                    {% endfor %}
+                    <span style="color: var(--text-muted);">...</span>
+                </div>
+            </div>
+            
+            <div>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem;">Lead Stage:</p>
+                <div style="background: rgba(255,255,255,0.02); padding: 0.8rem; border-radius: 8px; font-size: 0.85rem;">
+                    {% for item in dropdown_data['Lead Stage'] %}
+                    <span style="display: inline-block; padding: 0.2rem 0.5rem; background: rgba(16, 185, 129, 0.1); border-radius: 4px; margin: 0.2rem;">{{ item }}</span>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top: 1.5rem; padding: 1rem; background: rgba(59, 130, 246, 0.05); border-left: 3px solid var(--primary); border-radius: 8px;">
+            <p style="font-size: 0.9rem;"><i class="fa-solid fa-lightbulb"></i> <strong>Tip:</strong> Download a sample CSV with the correct format to get started quickly.</p>
+        </div>
+    </div>
+</div>
+{% endblock %}

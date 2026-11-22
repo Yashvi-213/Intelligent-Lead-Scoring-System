@@ -1,0 +1,6 @@
+Industry,Lead Stage,Call Status,Call Remarks,Users,contact_name,email,phone,company_name,notes
+IT & Technology,Contacted,Interested,Interested,25,John Doe,john.doe@example.com,9876543210,Tech Corp,Sample notes here
+Healthcare & Life Sciences,Demo Scheduled,Requested Demo,No Remark,50,Jane Smith,jane.smith@example.com,9876543211,Health Plus,Follow up needed
+Manufacturing & Industrial,Negotiation / Closing,Interested,Other Remarks,100,Bob Johnson,bob.j@example.com,9876543212,Manu Industries,Ready to close
+Trading & Services,Contacted,DNP,DNP,75,Alice Brown,alice.b@example.com,9876543213,Trade Solutions,New lead
+Real Estate & Construction,Demo Completed,Requested Demo,Interested,150,Charlie Davis,charlie.d@example.com,9876543214,Build Corp,Demo completed successfully
