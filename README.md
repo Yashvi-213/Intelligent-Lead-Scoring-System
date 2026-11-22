@@ -319,30 +319,6 @@ Contributions are welcome! Please follow these steps:
 
 This project is created for academic purposes as part of a final year project.
 
-## 👥 Team
-
-**Student:** [Your Name]
-**Roll No:** [Your Roll Number]
-**Department:** [Your Department]
-**Institution:** [Your Institution]
-**Guide:** [Guide Name]
-
-## 📞 Support
-
-For questions or issues:
-- Email: [your-email@example.com]
-- GitHub Issues: [repository-url]/issues
-
-## 🙏 Acknowledgments
-
-- Scikit-learn team for ML libraries
-- Flask community for web framework
-- ReportLab for PDF generation
-- Font Awesome for icons
-
-## 📚 Documentation
-
-For detailed documentation, see [PROJECT_DOCUMENTATION.md](PROJECT_DOCUMENTATION.md)
 
 ## 🔮 Future Enhancements
 
